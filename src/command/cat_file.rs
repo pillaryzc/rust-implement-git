@@ -2,19 +2,20 @@ use std::fs;
 use std::io::Read;
 use flate2::read::ZlibDecoder;
 
-pub struct CatFileCommand {
-    directory: String,
-    object_hash: String,
-    option: String,
-}
+use super::Command;
 
-impl CatFileCommand {
-    pub fn new(directory: String, object_hash: String, option: String) -> Self {
-        CatFileCommand { directory, object_hash, option }
-    }
-
-    pub fn execute(&self) {
-        let object_path = format!("{}/.git/objects/{}/{}", self.directory, &self.object_hash[0..2], &self.object_hash[2..]);
+pub struct CatFileCommand;
+impl Command for CatFileCommand {
+    fn execute(&self, args: Vec<String>) {
+        if args.len() < 4 {
+            println!("Invalid number of arguments");
+            return;
+        }
+        let option = args[2].clone();
+        let object_hash = args[3].clone();
+        
+        
+        let object_path = format!(".git/objects/{}/{}",&object_hash[0..2], &object_hash[2..]);
         let compressed_data = fs::read(object_path).expect("Failed to read object file");
         let mut decoder = ZlibDecoder::new(&compressed_data[..]);
         let mut decoded_data = Vec::new();
@@ -27,7 +28,7 @@ impl CatFileCommand {
 
         let object_type = header_str.split_whitespace().next().expect("Invalid object header");
 
-        match self.option.as_str() {
+        match option.as_str() {
             "-t" => {
                 println!("{}", object_type);
             },
