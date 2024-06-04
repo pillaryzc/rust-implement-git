@@ -7,7 +7,7 @@
 [package]
 name = "git-starter-rust"
 version = "0.1.0"
-authors = ["Codecrafters <hello@codecrafters.io>"]
+authors = ["Codecrafters <pillaryzc@163.com>"]
 edition = "2021"
 
 [dependencies]

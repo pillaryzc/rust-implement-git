@@ -6,6 +6,7 @@ use super::Command;
 pub(crate) struct InitCommand;
 impl Command for InitCommand {
     fn execute(&self, args: Vec<String>) {
+        let _ = args;
         fs::create_dir(".git").unwrap();
         fs::create_dir(".git/objects").unwrap();
         fs::create_dir(".git/refs").unwrap();
