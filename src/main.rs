@@ -9,9 +9,6 @@ use command::unkown::UnknownCommand;
 
 
 pub mod command;
-pub mod builder;
-pub mod facade;
-
 
 fn main() {
     let args: Vec<String> = env::args().collect();
